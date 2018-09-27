@@ -8,7 +8,7 @@
 * Type, or paste `npm install`. This will install the dependencies for the project.
 * Once installed, run `gulp sass --prod` to create an initial build of the CSS.
 * [Create a Mixer OAuth application](https://mixer.com/lab/oauth).
-* Add your Mixer OAuth Client ID and Secret to clientinfo.json.
+* Add your Mixer OAuth Client ID and Secret to `config/clientinfo.json`.
 * [Generate a self-signed SSL certificate.](https://devcenter.heroku.com/articles/ssl-certificate-self)
   * Place the SSL key into `sslcert` as `server.key`.
   * Place the SSL certificate into `sslcert` as `server.pem`.
