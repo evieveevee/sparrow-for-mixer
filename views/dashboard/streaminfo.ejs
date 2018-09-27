@@ -1,0 +1,24 @@
+<div class="panel-wrapper panel-wrapper--streaminfo">
+<div class="panel streaminfo">
+  <div class="panel-input">
+    <span class="input-title">Stream Title</span>
+    <input type="text" value="<%= user.profile.channel.name %>">
+  </div>
+  <div class="panel-input">
+    <span class="input-title">Stream Rating</span>
+    <select>
+      <option name="everyone" value="everyone" <% if (user.profile.channel.audience == 'everyone') { %> selected="selected" <% } %>>Everyone</option>
+      <option name="teen" value="teen" <% if (user.profile.channel.audience == 'teen') { %> selected="selected" <% } %>>Teen (13+)</option>
+      <option name="mature" value="mature" <% if (user.profile.channel.audience == 'mature') { %> selected="selected" <% } %>>Mature (18+)</option>
+    </select>
+  </div>
+  <div class="panel-input">
+    <span class="input-title">Game</span>
+    <input type="text" value="Overwatch">
+  </div>
+
+  <div class="submit">
+    <button type="submit" id="sparrow-update">Update Info</button>
+  </div>
+</div>
+</div>

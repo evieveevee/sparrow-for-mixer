@@ -1,0 +1,44 @@
+$overlay6-color: #333;
+$overlay6-backing: #DB8190;
+$overlay6-text-color: white;
+$overlay6-width: 550px;
+$overlay6-animation: 15s;
+
+@keyframes overlay5-rear {
+  5% {width: 0;}
+  10% {width: $overlay5-width; }
+  80% {width: $overlay5-width; }
+  85% {width: 0;}
+  90% {width: 0;}
+  100% {width: 0;}
+}
+
+.overlay5 {
+  .overlay-backing {
+    background: linear-gradient(0deg, darken($overlay5-color, 7%), $overlay5-color);
+    color: $overlay5-text-color;
+
+    &::after {
+      background-color: $overlay5-backing;
+    }
+  }
+
+  .overlay-content {
+    width: $overlay5-width;
+  }
+
+  &.animating {
+    .overlay-backing {
+      animation: overlay5-rear $overlay5-animation infinite;
+
+      &::after {
+        animation: overlay-accent $overlay5-animation infinite !important;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    .overlay-text {
+      animation: overlay-content $overlay5-animation infinite;
+    }
+  }
+}

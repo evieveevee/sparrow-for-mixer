@@ -1,0 +1,48 @@
+$overlay1-color: #333;
+$overlay1-backing: #7289DA;
+$overlay1-text-color: white;
+$overlay1-width: 550px;
+$overlay1-animation: 15s;
+
+@keyframes overlay1-rear {
+  5% {width: 0;}
+  10% {width: $overlay1-width; }
+  80% {width: $overlay1-width; }
+  85% {width: 0;}
+  90% {width: 0;}
+  100% {width: 0;}
+}
+
+.overlay1 {
+  .overlay-backing {
+    background: linear-gradient(0deg, darken($overlay1-color, 7%), $overlay1-color);
+    color: $overlay1-text-color;
+
+    &::after {
+      background-color: $overlay1-backing;
+    }
+  }
+
+  .overlay-content {
+    width: $overlay1-width;
+  }
+
+  &.animating {
+    .overlay-icon-wrapper {
+      animation: overlay-icon $overlay1-animation infinite;
+    }
+
+    .overlay-backing {
+      animation: overlay1-rear $overlay1-animation infinite;
+
+      &::after {
+        animation: overlay-accent $overlay1-animation infinite !important;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    .overlay-text {
+      animation: overlay-content $overlay1-animation infinite;
+    }
+  }
+}

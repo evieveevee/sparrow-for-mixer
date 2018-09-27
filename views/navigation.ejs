@@ -1,0 +1,19 @@
+<div class="title">
+  Sparrow for Mixer
+</div>
+<%if (!isAuthenticated) {%>
+<ul>
+  <li><a href='/auth/Mixer'>Sign into Mixer</a></li>
+</ul>
+<%} else{ %>
+<ul>
+  <li>
+    <div class="userinfo">
+      <%= user.profile.username %>
+      <span class="supplement">LVL <%= user.profile.level %> | <i class="fontawesome lightning">bolt</i> <%= user.profile.sparks %></span>
+    </div>
+    <img class="avatar" src="<%= user.profile.avatarUrl %>">
+  </li>
+  <li><a href="/logout">Logout</a></li>
+</ul>
+<% } %>

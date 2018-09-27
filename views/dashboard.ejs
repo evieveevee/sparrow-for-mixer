@@ -1,0 +1,11 @@
+<% include header %>
+
+<div class="dashboard">
+  <% if (isAuthenticated) { %>
+    <% include dashboard/goto-overlay %>
+  <% } else { %>
+    <% include dashboard/login %>
+  <% } %>
+</div>
+
+<% include footer %>

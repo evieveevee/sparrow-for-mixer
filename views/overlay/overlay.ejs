@@ -1,0 +1,125 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/master.css">
+</head>
+<body>
+	<div class="overlay overlay1 js_discord_target">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<!-- <div class="overlay-icon-wrapper">
+					<div class="overlay-icon">
+						<img src="/img/discord.png">
+					</div>
+				</div> -->
+				<div class="overlay-text">
+					<div class="overlay-main">
+						Join me on Discord!
+					</div>
+					<div class="overlay-sub">
+						[Your Discord URL Here]
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overlay overlay2 js_humble_target">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main" >
+						
+					</div>
+					<div class="overlay-sub">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="overlay overlay3 js_schedule_target">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main">
+						Wondering when the next stream is?
+					</div>
+					<div class="overlay-sub">
+						Visit [Your Schedule Here]
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="overlay overlay4 js_hello_target">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main">
+						Welcome! I'm [Your Name Here]! 
+					</div>
+					<div class="overlay-sub">
+						I use [Your Pronouns Here] pronouns! Thanks for tuning in!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overlay overlay5">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main js_follower_target" >
+						
+					</div>
+					<div class="overlay-sub">
+						just followed!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overlay overlay6">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main js_subscriber_target" >
+						
+					</div>
+					<div class="overlay-sub">
+						just subscribed!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overlay overlay7">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="overlay-main js_host_target" >
+						
+					</div>
+					<div class="overlay-sub">
+						just hosted for <span class="js_host_count"></span> viewers!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/dist/jquery.min.js"></script>
+	<script src="js/dist/carina.js"></script>
+
+	<script src="js/queue.js"></script>
+	<script src="js/carina-sub.js"></script>
+	<script>
+		SparrowCarina.init(<%= user.profile.channel.id %>,"<%= user.accessToken %>");
+	</script>
+	</body>
+</html>

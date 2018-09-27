@@ -1,0 +1,44 @@
+$overlay4-color: #333;
+$overlay4-backing: pink;
+$overlay4-text-color: white;
+$overlay4-width: 720px;
+$overlay4-animation: 15s;
+
+@keyframes overlay4-rear {
+  5% {width: 0;}
+  10% {width: $overlay4-width; }
+  80% {width: $overlay4-width; }
+  85% {width: 0;}
+  90% {width: 0;}
+  100% {width: 0;}
+}
+
+.overlay4 {
+  .overlay-backing {
+    background: linear-gradient(0deg, darken($overlay4-color, 7%), $overlay4-color);
+    color: $overlay4-text-color;
+
+    &::after {
+      background-color: $overlay4-backing;
+    }
+  }
+
+  .overlay-content {
+    width: $overlay4-width;
+  }
+
+  &.animating {
+    .overlay-backing {
+      animation: overlay4-rear $overlay4-animation infinite;
+
+      &::after {
+        animation: overlay-accent $overlay4-animation infinite !important;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    .overlay-text {
+      animation: overlay-content $overlay4-animation infinite;
+    }
+  }
+}

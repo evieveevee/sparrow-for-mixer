@@ -1,0 +1,116 @@
+@import 'whiteboard';
+.title {
+  font-family: Basier Square;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  flex: 1;
+}
+
+.navigation {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #1b5780;
+  color: white;
+  padding: 0 30px;
+  box-shadow: 0px 3px 20px rgba(0,0,0,0.5);
+  ul {
+    text-align: right;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-weight: 700;
+    li {
+      display: inline-block;
+      padding-left: 15px;
+    }
+    a {
+      color: #98cfff;
+      text-decoration: none;
+    }
+  }
+  .userinfo {
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+  .supplement {
+    display: block;
+    color: #afcae0;
+  }
+  .lightning {
+    color: #F5C332;
+    font-size: 8px;
+    margin-right: 0px;
+    position: relative;
+    top: -3px;
+  }
+  .avatar {
+    height: 45px;
+    width: 45px;
+    border-radius: 45px;
+    vertical-align: middle;
+    margin-left: 15px;
+  }
+}
+
+.dashboard {
+  font-family: Roboto;
+  padding: 15px;
+  .panel-wrapper {
+    display: inline-block;
+    max-width: 50%;
+    padding: 15px;
+    margin-left: -4px;
+
+    &.panel-wrapper--streaminfo {
+      width: 33%;
+    }
+  }
+
+  .panel {
+    padding: 15px;
+    border: 1px solid lightgrey;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+
+    // Temp code to center the button
+    // This will be irrelevant once the dash has any features implemented.
+    text-align: center;
+
+    // Temporary design for the button
+    .goto-overlay {
+      display: inline-block;
+      padding: 15px 35px;
+      background-color: #1b5780;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+
+  .panel.streaminfo {
+    .panel-input {
+      margin-bottom: 15px;
+    }
+
+    .input-title {
+      color: grey;
+    }
+    input,select {
+      display: block;
+      width: 100%;
+      padding: 10px 5px;
+    }
+  }
+}
