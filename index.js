@@ -1,4 +1,5 @@
-var clientInfo = require('./config/clientinfo.json')
+var clientInfo = require('./config/clientinfo.json');
+var config = require('./config/config.json');
 var morgan = require('morgan');
 var User = require('./app/user');
 var path = require('path');
@@ -22,9 +23,6 @@ var credentials = {
 }
 
 var mixerApi = "https://mixer.com/api/v1";
-
-// var config = require('config/config.json');
-// var mixerSession = require('config/mixerSession.json');
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 app.use(express.static(appDir+'/public'));
@@ -114,11 +112,12 @@ app.get('/favicon.ico', (req, res) => {
    .send('Not found');
 });
 
-server = https.createServer(credentials, app).listen(443, function(){
-  console.log("Express server listening on port " + 443);
+server = https.createServer(credentials, app).listen(config.server.port, function(){
+  console.log("Express HTTPS server listening on port " + config.server.port);
 });
 
 http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}).listen(80);
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+}).listen(config.server.http_port);
+console.log("Express HTTP server listening on port " + config.server.http_port);

@@ -1,0 +1,6 @@
+{
+  "server": {
+    "port": 443,
+    "http_port": 80
+  }
+}
