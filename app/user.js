@@ -13,6 +13,7 @@ const User = {
 
     // console.log("DATA: "+JSON.stringify(data._raw));
 
+    dbTools.createUsersIfNotExists();
     db = dbTools.openDbReadWrite();
     let sql = `SELECT DISTINCT id name from users WHERE id = ` + id + `;`
     db.all(sql, [], (err, rows) => {
@@ -29,11 +30,13 @@ const User = {
           tokenDate = \"`+data.tokenDate+`\",\
           profile = \'`+data.processed+`\'
           WHERE id = `+id+`;`);
+        db.close();
       } else {
         console.log("No user found. Creating user with ID " + id + "...");
         db.run(`INSERT INTO users \
           (id, accessToken, refreshToken, tokenDate, profile)\
-          VALUES (`+id+`,\"`+data.accessToken+`\",\"`+data.refreshToken+`\",\"`+data.tokenDate+`\",\"`+data.processed+`\");`);
+          VALUES (`+id+`,\"`+data.accessToken+`\",\"`+data.refreshToken+`\",\"`+data.tokenDate+`\",\'`+data.processed+`\');`);
+        db.close();
       }
     })
     console.log('DB closed after storing new tokens, back to you, passport!')
@@ -47,6 +50,7 @@ const User = {
   findById: function(id, callback) {
     var user = {};
     // Connect to local DB.
+    dbTools.createUsersIfNotExists();
     let db = dbTools.openDbReadOnly();
     // Check tokens
     refreshRequired = this.checkTokens(id);
@@ -76,6 +80,7 @@ const User = {
       }
     });
   },
+
   checkTokens: function(id) {
     let db = dbTools.openDbReadOnly();
     let sql = `SELECT tokenDate from users WHERE id = `+id+`;`
@@ -106,6 +111,7 @@ const User = {
       }
     });
   },
+
   refreshTokens: function(id) {
     let db = dbTools.openDbReadWrite();
     let sql = `SELECT * from users WHERE id = `+id+`;`
@@ -117,7 +123,7 @@ const User = {
       // If we find the entry...
       if (rows.length == 1) {
         rows.forEach((row) => {
-        var options = { method: 'POST',
+          var options = { method: 'POST',
           url: 'https://mixer.com/api/v1/oauth/token',
           formData: { 
             grant_type: 'refresh_token',
@@ -139,8 +145,8 @@ const User = {
           db.close();
         });
       });
-    }
-  });
+      }
+    });
   }
 }
 
