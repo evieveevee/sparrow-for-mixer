@@ -28,10 +28,6 @@ $overlay1-animation: 15s;
   }
 
   &.animating {
-    .overlay-icon-wrapper {
-      animation: overlay-icon $overlay1-animation infinite;
-    }
-
     .overlay-backing {
       animation: overlay1-rear $overlay1-animation infinite;
 
