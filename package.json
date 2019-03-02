@@ -1,10 +1,14 @@
 {
   "name": "sparrow-for-mixer",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "main": "index.js",
   "author": "Jessica Alouette",
   "license": "ISC",
   "description": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/tielqt/sparrow-for-mixer.git"
+  },
   "devDependencies": {
     "ejs-lint": "^0.3.0",
     "gulp": "^4.0.0",
