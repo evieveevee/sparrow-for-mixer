@@ -2,6 +2,7 @@ var clientInfo = require('./config/clientinfo.json');
 var config = require('./config/config.json');
 var morgan = require('morgan');
 var User = require('./app/user');
+var dbTools = require('./app/db-tools');
 var path = require('path');
 var appDir = path.dirname(require.main.filename);
 var express = require('express'), fs = require('fs'), app = express(), response = {};
@@ -63,7 +64,12 @@ passport.deserializeUser(function(id, done) {
   })
 });
 
-app.get('/auth/mixer',
+app.get('/auth/mixer', function(req, res) {
+  dbTools.createUsersIfNotExists();
+  res.redirect('/auth/mixer/redirect');
+})
+
+app.get('/auth/mixer/redirect',
   passport.authenticate('mixer', {scope: "channel:update:self+channel:analytics:self+user:analytics:self+user:details:self"}));
 
 app.get('/auth/mixer/callback',

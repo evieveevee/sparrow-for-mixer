@@ -12,8 +12,6 @@ const User = {
     // callback = function
 
     // console.log("DATA: "+JSON.stringify(data._raw));
-
-    dbTools.createUsersIfNotExists();
     db = dbTools.openDbReadWrite();
     let sql = `SELECT DISTINCT id name from users WHERE id = ` + id + `;`
     db.all(sql, [], (err, rows) => {
@@ -50,7 +48,6 @@ const User = {
   findById: function(id, callback) {
     var user = {};
     // Connect to local DB.
-    dbTools.createUsersIfNotExists();
     let db = dbTools.openDbReadOnly();
     // Check tokens
     refreshRequired = this.checkTokens(id);
