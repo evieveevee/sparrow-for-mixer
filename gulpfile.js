@@ -28,14 +28,38 @@ var sassFiles = './public/sass/**/*.scss';
 // And this is just a shortcut to save typing.
 var cssdirectory = './public/css';
 
+// This removes the sourcemap folder.
+gulp.task('sourcemaps:clean', function() {
+  return gulp
+    .src(cssdirectory + '/maps', {allowEmpty: true})
+    .pipe(clean())
+});
+
+// This runs an automated version of the sass task above.
+gulp.task('sass:watch', function () {
+  gulp
+    .series('sass')
+    .watch(sassFiles, ['sass']);
+});
+
+gulp.task('sass:newversion', function () {
+  gulp.series('css:clean','sourcemaps:clean','sass')
+})
+
+
+// This completely removes all the compiled CSS and prepares it to be overwritten. This reduces the chances of a conflict when compiling for production.
+gulp.task('css:clean', gulp.series('sourcemaps:clean'), function () {
+  return gulp
+    .src(cssdirectory + '/**/*.css', {allowEmpty: true})
+    .pipe(clean());
+})
+
 // This is the actual task. Running "gulp sass" in the command line runs this file.
-gulp.task('sass', function () {
+// .series runs other tasks in order. In this case, we're cleaning out sourcemaps and then cleaning the sass files.
+gulp.task('sass', gulp.series('sourcemaps:clean', 'css:clean'), function () {
   // If we're in production, run this task.
   if (production) {
     return gulp
-      // .start runs another task. In this case, we're cleaning out sourcemaps and then cleaning the sass files.
-      .start('sourcemaps:clean')
-      .start('css:clean')
       // .src tells Gulp where in the project it should begin working on the task.
       .src(sassFiles)
       // .pipe where we can "pipe" in commands and execute them.
@@ -58,32 +82,3 @@ gulp.task('sass', function () {
       .pipe(gulp.dest(cssdirectory))
   }
 });
- 
-// This runs an automated version of the sass task above.
-gulp.task('sass:watch', function () {
-  gulp
-    .start('sass')
-    .watch(sassFiles, ['sass']);
-});
-
-gulp.task('sass:newversion', function () {
-  gulp
-    .start('css:clean')
-    .start('sourcemaps:clean')
-    .start('sass')
-})
-
-// This removes the sourcemap folder.
-gulp.task('sourcemaps:clean', function() {
-  return gulp
-    .src(cssdirectory + '/maps')
-    .pipe(clean())
-});
-
-// This completely removes all the compiled CSS and prepares it to be overwritten. This reduces the chances of a conflict when compiling for production.
-gulp.task('css:clean', function () {
-  return gulp
-    .start('sourcemaps:clean')
-    .src(cssdirectory + '/**/*.css')
-    .pipe(clean());
-})
