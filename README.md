@@ -6,13 +6,12 @@
   - type or paste `npm install gulp -g`
 * Open the project folder in the command line (on Windows, Shift+Right Click in the folder, and choose "Open in Command Prompt")
 * Type, or paste `npm install`. This will install the dependencies for the project.
-* Once installed, run `gulp sass --prod` to create an initial build of the CSS.
 * [Create a Mixer OAuth application](https://mixer.com/lab/oauth).
 * Add your Mixer OAuth Client ID and Secret to `config/clientinfo.json`.
 * [Generate a self-signed SSL certificate.](https://devcenter.heroku.com/articles/ssl-certificate-self)
   * Place the SSL key into `sslcert` as `server.key`.
   * Place the SSL certificate into `sslcert` as `server.pem`.
-* Create a database file for SQLite at `sqlite/mixer.db`.
+* Run `gulp install` to create the database file, build the CSS, and get everything ready.
 * Run `node index` to start the server.
 * Open localhost/dashboard in your browser, and click "Sign in to Mixer" in the top right.
 * Authorize through Mixer.

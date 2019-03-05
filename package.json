@@ -11,13 +11,13 @@
   },
   "devDependencies": {
     "ejs-lint": "^0.3.0",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-clean": "^0.3.2",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "jquery": "^3.3.1",
-    "normalize.css": "^7.0.0",
-    "yargs": "^8.0.2"
+    "normalize.css": "^7.0.0"
   },
   "dependencies": {
     "@mixer/client-node": "^3.3.1",
@@ -28,7 +28,6 @@
     "express": "^4.16.4",
     "express-logger": "0.0.3",
     "express-session": "^1.15.6",
-    "gulp": "^4.0.0",
     "handlebars": "^4.1.0",
     "morgan": "^1.9.0",
     "natives": "^1.1.6",
