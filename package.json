@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "ejs-lint": "^0.3.0",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-sass": "^3.2.1",
@@ -28,13 +29,13 @@
     "express": "^4.16.4",
     "express-logger": "0.0.3",
     "express-session": "^1.15.6",
-    "gulp": "^4.0.0",
     "handlebars": "^4.1.0",
     "morgan": "^1.9.0",
     "natives": "^1.1.6",
     "passport": "^0.4.0",
     "passport-mixer": "^1.0.1",
     "request": "^2.88.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "websocket": "^1.0.28"
   }
 }
