@@ -1,0 +1,42 @@
+.remote {
+  font-size: 18pt;
+  font-weight: bold;
+  background-color: #00bbff;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  padding: 10px 30px;
+  margin-bottom: 15px;
+}
+
+.tracker--side {
+  display: inline-block;
+}
+
+label {
+  display: block;
+}
+
+.tracker { 
+  margin-bottom: 15px;
+  font-family: Arial;
+
+  .tracker-side {
+    margin-bottom: 5px;
+
+    input {
+      padding: 5px 3px;
+      border-radius: 3px;
+      border: 1px solid grey;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+
+  input[type="number"] {
+    width: 50px;
+  }
+}

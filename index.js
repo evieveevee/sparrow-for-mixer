@@ -90,7 +90,7 @@ app.get('/', (req, res) => {
 
 app.get('/overlay', (req, res) => {
   if (req.isAuthenticated()) {
-    res.render('overlay/overlay', {user: req.user, isAuthenticated: true});
+    res.render('overlay/overlay', {user: req.user, isAuthenticated: true, config: config.remote});
   } else {
     res.redirect('/dashboard');
   }
@@ -106,6 +106,10 @@ app.get('/dashboard', (req, res) => {
   } else {
     res.render('dashboard', {isAuthenticated: false});
   }
+});
+
+app.get('/remote', (req, res) => {
+  res.render('remote', {config: config.remote});
 });
 
 app.get('/logout', (req, res) => {
@@ -127,3 +131,67 @@ http.createServer(function (req, res) {
   res.end();
 }).listen(config.server.http_port);
 console.log("Express HTTP server listening on port " + config.server.http_port);
+
+var WebSocketServer = require('websocket').server;
+
+var wsHttpsServer = https.createServer(credentials, app).listen(config.remote.port, function() {
+  console.log('WebSockets server spawned on port '+config.remote.port);
+});
+
+var wsRemotes = [];
+var wsOverlays = [];
+// create the server
+wsServer = new WebSocketServer({
+  httpServer: wsHttpsServer
+});
+
+// WebSocket server
+wsServer.on('request', function(request) {
+  console.log((new Date()) + ' Connection from origin '
+      + request.origin + '.');
+  var connection = request.accept(null, request.origin);
+  var index;
+  var clientType;
+
+  // This is the most important callback for us, we'll handle
+  // all messages from users here.
+  connection.on('message', function(message) {
+    console.log(message);
+    // connection.send(message.utf8Data);
+    message = JSON.parse(message.utf8Data);
+    Client = message.Client;
+    if (message.Client) {
+      if (Client.intent == 'identify') {
+        if (Client.type == "remote") {
+          index = wsRemotes.push(connection) - 1;
+          clientType = "remote";
+          console.log("Remote connected.");
+        } else if (Client.type == "overlay") {
+          index = wsOverlays.push(connection) - 1;
+          clientType = "overlay";
+          console.log("Overlay connected.");
+        }
+      }
+
+      if ((Client.intent == "action" && Client.type == "remote") || 
+          (Client.intent=="tracker" && Client.type == "remote")) {
+        var json = JSON.stringify({ type:'message', data: message });
+        for (var i=0; i < wsOverlays.length; i++) {
+          wsOverlays[i].sendUTF(json);
+        }
+      }
+    }
+
+  });
+
+  connection.on('close', function(connection) {
+    // close user connection
+    if (clientType == "overlay") {
+      wsOverlays.splice(index, 1);
+    }
+    if (clientType == "remote") {
+      wsRemotes.splice(index, 1);
+    }
+    console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
+  });
+});
