@@ -2,5 +2,9 @@
   "server": {
     "port": 443,
     "http_port": 80
+  },
+  "remote": {
+    "host": "127.0.0.1",
+    "port": 1337,
   }
 }
