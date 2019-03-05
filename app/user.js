@@ -33,7 +33,7 @@ const User = {
         console.log("No user found. Creating user with ID " + id + "...");
         db.run(`INSERT INTO users \
           (id, accessToken, refreshToken, tokenDate, profile)\
-          VALUES (`+id+`,\"`+data.accessToken+`\",\"`+data.refreshToken+`\",\"`+data.tokenDate+`\",\'`+data.processed+`\');`);
+          VALUES (\"`+id+`\",\"`+data.accessToken+`\",\"`+data.refreshToken+`\",\"`+data.tokenDate+`\",\'`+data.processed+`\');`);
         db.close();
       }
     })
@@ -138,7 +138,7 @@ const User = {
             accessToken = \"`+tokens.access_token+`\",\
             refreshToken = \"`+tokens.refresh_token+`\",\
             tokenDate = \"`+Date.now()+`\"\
-            WHERE id = `+id+`;`);
+            WHERE id = \"`+id+`;\"`);
           db.close();
         });
       });
