@@ -114,7 +114,7 @@ if (timeSinceLastAnimation >= 14) {
         queue.splice(0,1);
         break;
       case 'host':
-        AnimLib.host(queue[0].content, viewers);
+        AnimLib.host(queue[0].content);
         queue.splice(0,1);
         break;
       case 'cheer':
@@ -153,23 +153,22 @@ function timer() {
 window.setInterval(timer, 1000)
 window.setInterval(queueCheck, 5000);
 
-// Timings: 1800000,1800000,1800000,600000,600000
-// 30m = 1800000
-window.setTimeout(function() {
-  console.log("Started hello looping")
-  helloQueue();
-  window.setInterval(helloQueue, 1800000);
+var loopedItems = [helloQueue, discordQueue, humbleQueue];
+var loopInterval = 5; // minute(s)
+var loopTimer = loopInterval * 60 * 1000;
+
+// 5 * 60 * 1000
+for (var x = 0; x < loopedItems.length; x++) {
+  createTimeout(loopedItems[x], x);
+}
+
+function createTimeout(callback, y) {
   window.setTimeout(function() {
-    console.log("Started Discord looping")
-    discordQueue();
-    window.setInterval(discordQueue, 1800000);
-    window.setTimeout(function() {
-      console.log("Started Humble looping")
-      humbleQueue()
-      window.setInterval(humbleQueue, 1800000);
-    },600000);
-  },600000)
-},600000);
+    console.log('Started ' + callback + ' looping');
+    callback();
+    window.setInterval(callback, ((loopInterval * loopedItems.length) * 60 * 1000));
+  }, (loopTimer * (y + 1)));
+}
 
 var followerQueue = [];
 var stayFollowed = function(username, following) {
@@ -220,5 +219,3 @@ var followerCheck = function(username) {
     return false;
   }
 }
-
-
