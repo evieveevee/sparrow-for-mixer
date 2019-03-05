@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="/css/remote.css">
+</head>
+<body>
+  <button class="remote js-button" data-type="hello">Hello</button>
+  <button class="remote js-button" data-type="humble">Humble</button>
+  <button class="remote js-button" data-type="discord">Discord</button>
+
+  <div class="trackers--wrapper">
+    <!-- W/L Tracking -->
+    <div class="tracker" id="tracker1">
+      <div class="tracker-side tracker-side--left">
+        <label name="stat1">Tracker (Left Side)</label>
+        <input name="stat1" type="text" class="tracker--name" Value="Kills">
+        <input name="number1" type="number" length="2" value="0">
+      </div>
+      <div class="tracker-side tracker-side--right">
+        <label name="stat2">Tracker (Right Side)</label>
+        <input name="stat2" type="text" class="tracker--name" Value="Deaths">
+        <input name="number2" type="number" length="2" value="0">
+      </div>
+
+      <button class="tracker--submit js-tracker" data-tracker="#tracker1">Send it.</button>
+    </div>
+
+    <div class="tracker" id="tracker2">
+      <div class="tracker-side tracker-side--left">
+        <label name="stat1">Tracker (Left Side)</label>
+        <input name="stat1" type="text" class="tracker--name" Value="Wins">
+        <input name="number1" type="number" length="2" value="0">
+      </div>
+      <div class="tracker-side tracker-side--right">
+        <label name="stat2">Tracker (Right Side)</label>
+        <input name="stat2" type="text" class="tracker--name" Value="Losses">
+        <input name="number2" type="number" length="2" value="0">
+      </div>
+
+      <button class="tracker--submit js-tracker" data-tracker="#tracker2">Send it.</button>
+    </div>
+  </div>
+
+  <script src="/js/dist/jquery.min.js"></script>
+  <script>
+    var trackerdata = '';
+    $(function () {
+  // if user is running mozilla then use it's built-in WebSocket
+  window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+  var config = <%- JSON.stringify(config) %>;
+  var connection = new WebSocket('wss://'+config.host+':'+config.port);
+
+  connection.onopen = function () {
+    // connection is opened and ready to use
+     var clientInfo = {
+      Client: {
+        intent: 'identify',
+        type: 'remote',
+      }
+    }
+    connection.send(JSON.stringify(clientInfo));
+  };
+
+  connection.onerror = function (error) {
+    // an error occurred when sending/receiving data
+    alert("Error occured establishing a WebSockets connection.")
+  };
+
+  $('.js-button').click(function() {
+    var actionType = $(this).attr("data-type");
+    var data = {
+      Client: {
+        intent: 'action',
+        type: 'remote',
+      },
+      Action: {
+        type: actionType,
+      }
+    }
+
+    connection.send(JSON.stringify(data));
+    console.log("Sending "+$(this).attr("data-type"));
+  });
+
+  $('.js-tracker').click(function() {
+    var tracker = $(this).attr('data-tracker');
+    var leftName = $(tracker + ' input[name="stat1"]').val();
+    var leftValue = $(tracker + ' input[name="number1"]').val();
+    var rightName = $(tracker + ' input[name="stat2"]').val();
+    var rightValue = $(tracker + ' input[name="number2"]').val();
+
+    trackerdata = {
+      Client: {
+        intent: 'tracker',
+        type: 'remote',
+      },
+      Tracker: {
+        leftName: leftName,
+        leftValue: leftValue,
+        rightName: rightName,
+        rightValue: rightValue,
+      }
+    }
+
+    connection.send(JSON.stringify(trackerdata));
+    console.log("Sending "+(JSON.stringify(trackerdata)));
+  });
+});  
+
+    console.info();
+</script>
+
+</body>
+</html>

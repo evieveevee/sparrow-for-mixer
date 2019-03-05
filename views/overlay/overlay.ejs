@@ -113,13 +113,32 @@
 		</div>
 	</div>
 
+	<div class="overlay overlay-tracker js_tracker_target no-icon">
+		<div class="overlay-backing">
+			<div class="overlay-content">
+				<div class="overlay-text">
+					<div class="tracker-side side--left">
+						<div class="tracker-name tracker--left-name"></div>
+						<div class="tracker-value tracker--left-value"></div>
+					</div>
+					<div class="tracker-side side--right">
+						<div class="tracker-name tracker--right-name"></div>
+						<div class="tracker-value tracker--right-value"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="js/dist/jquery.min.js"></script>
 	<script src="js/dist/carina.js"></script>
 
 	<script src="js/queue.js"></script>
 	<script src="js/carina-sub.js"></script>
+	<script src="js/remote.js"></script>
 	<script>
 		SparrowCarina.init(<%= user.profile.channel.id %>,"<%= user.accessToken %>");
+		SparrowRemote.init(<%- JSON.stringify(config) %>);
 	</script>
 	</body>
 </html>
