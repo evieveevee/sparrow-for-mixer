@@ -1,9 +1,15 @@
+var fs = require('fs');
 var dbTools = require('./db-tools');
 var clientInfo = require('../config/clientinfo.json');
 var request = require('request');
 
 var db;
 var MIXER_TOKEN = "https://mixer.com/api/oauth/token";
+
+function logFile(data, cb) {
+  console.log("Logging user data to file.");
+  fs.writeFile('./user.json', JSON.stringify(data._raw), cb);
+}
 
 const User = {
   findOrCreate: function(id, data, callback) {
@@ -12,6 +18,9 @@ const User = {
     // callback = function
 
     // console.log("DATA: "+JSON.stringify(data._raw));
+    logFile(data, function() {
+      console.log('User object logged to user.json')
+    });
     db = dbTools.openDbReadWrite();
     let sql = `SELECT DISTINCT id name from users WHERE id = ` + id + `;`
     db.all(sql, [], (err, rows) => {
