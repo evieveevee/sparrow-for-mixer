@@ -19,7 +19,7 @@ const User = {
         throw (err)
       }
       console.log('ROWS FOUND: '+ rows.length);
-      data.processed = JSON.stringify(data._raw).replace("'","''");
+      data.processed = (data.string).replace(new RegExp("'", "g"), "''");
       if (rows.length > 0) {
         console.log("User found. Updating data...")
         db.run(`UPDATE users SET \
